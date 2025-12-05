@@ -1,23 +1,26 @@
+#!/usr/bin/env python3
+import marshal, types, os, sys
 
-import sys
-import importlib.util
-import os
-from pathlib import Path
+def find_pyc():
+    # البحث عن أول ملف ينتهي بـ pyc
+    for f in os.listdir("."):
+        if f.endswith(".pyc"):
+            return f
+    return None
 
-# تحديد مسار pyc
-pyc_path = Path(__file__).parent / "__pycache__" / "snsnsnd.cpython-312.pyc"
+def run_pyc():
+    filename = find_pyc()
+    if not filename:
+        print("❌ ملف pyc غير موجود")
+        sys.exit(1)
 
-if not pyc_path.exists():
-    print("❌ ملف pyc غير موجود")
-    exit()
+    with open(filename, "rb") as f:
+        data = f.read()
 
-# تحميل الملف كـ module
-spec = importlib.util.spec_from_file_location("snsnsnd", pyc_path)
-module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(module)
+    # تخطي 16 بايت الأولى (Header)
+    code = marshal.loads(data[16:])
 
-# تشغيل الدالة main() داخل ملفك
-if hasattr(module, "main"):
-    module.main()
-else:
-    print("⚠ ملفك لا يحتوي على دالة main()")
+    module = types.ModuleType("__main__")
+    exec(code, module.__dict__)
+
+run_pyc()
